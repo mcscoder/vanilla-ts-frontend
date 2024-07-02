@@ -32,3 +32,7 @@ export const routes: Route[] = [
     component: Login,
   },
 ];
+
+export const routerStates = {
+  currentScreenPath: "",
+};
