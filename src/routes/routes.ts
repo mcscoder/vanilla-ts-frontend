@@ -9,30 +9,31 @@ import {
   ProductDetails,
 } from "../views/pages";
 
+export const routerStates = {
+  currentScreenPath: location.pathname,
+};
+
 export type Route = {
   path: string;
-  component: new () => ScreenLayout;
+  component: ScreenLayout;
   children?: Route[];
 };
 
 export const routes: Route[] = [
   {
     path: "",
-    component: MainLayout,
+    component: new MainLayout(),
     children: [
-      { path: "/", component: Home },
-      { path: "/products", component: AllProducts },
-      { path: "/orders", component: OrderList },
-      { path: "/orders-details/:orderId", component: OrderDetails },
-      { path: "/product-details/:productId", component: ProductDetails },
+      { path: "/", component: new Home() },
+      { path: "/products", component: new AllProducts() },
+      { path: "/products/:categoryId", component: new AllProducts() },
+      { path: "/orders", component: new OrderList() },
+      { path: "/orders-details/:orderId", component: new OrderDetails() },
+      { path: "/product-details/:productId", component: new ProductDetails() },
     ],
   },
   {
     path: "/login",
-    component: Login,
+    component: new Login(),
   },
 ];
-
-export const routerStates = {
-  currentScreenPath: "",
-};

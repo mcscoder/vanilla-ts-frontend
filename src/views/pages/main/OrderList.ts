@@ -1,12 +1,19 @@
 import { Router } from "../../../routes";
 import { ScreenLayout } from "../../../types";
-import { Container, Text } from "../../components";
+import { Text } from "../../components";
 
-export class OrderList implements ScreenLayout {
-  container: HTMLDivElement;
+export class OrderList extends ScreenLayout {
   constructor() {
-    // Global container
-    this.container = Container();
+    super("orders");
+
+    setTimeout(() => {
+      this.initContent();
+    });
+  }
+
+  initData() {}
+
+  initContent() {
     const heading = Text("h1", "OrderList");
 
     const button = document.createElement("button");
@@ -15,16 +22,8 @@ export class OrderList implements ScreenLayout {
       Router.navigateTo("/");
     };
 
-    this.log();
-
     this.container.append(heading, button);
   }
-
-  log() {
-    console.log("From Orders");
-  }
-
-  initContent(): void {}
 
   render() {
     return this.container;

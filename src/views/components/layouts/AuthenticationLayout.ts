@@ -6,7 +6,11 @@ export class AuthenticationLayout implements ScreenLayout {
   constructor() {
     this.container = Container();
   }
-  initContent(): void {}
+
+  initData() {}
+
+  initContent() {}
+
   render(...children: HTMLElement[]) {
     this.container.replaceChildren(...children);
     return this.container;

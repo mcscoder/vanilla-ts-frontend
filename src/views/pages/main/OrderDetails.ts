@@ -1,13 +1,19 @@
 import { Router } from "../../../routes";
 import { ScreenLayout } from "../../../types";
-import { Container, Text } from "../../components";
+import { Text } from "../../components";
 
-export class OrderDetails implements ScreenLayout {
-  container: HTMLDivElement;
-  heading: HTMLHeadingElement;
+export class OrderDetails extends ScreenLayout {
   constructor() {
-    // Global container
-    this.container = Container();
+    super("order_details");
+
+    setTimeout(() => {
+      this.initContent();
+    }, 0);
+  }
+
+  initData() {}
+
+  initContent() {
     const heading = Text("h1", "OrderDetails");
 
     const button = document.createElement("button");
@@ -17,8 +23,6 @@ export class OrderDetails implements ScreenLayout {
 
     console.log(Router.getParams()["orderId"]);
   }
-
-  initContent(): void {}
 
   render() {
     return this.container;

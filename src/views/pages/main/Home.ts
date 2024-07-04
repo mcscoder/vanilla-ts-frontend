@@ -1,14 +1,20 @@
+import { logoIcon } from "../../../constants";
 import { Router } from "../../../routes";
 import { ScreenLayout } from "../../../types";
 import { Container, Text } from "../../components";
 
-export class Home implements ScreenLayout {
-  container: HTMLDivElement;
-
+export class Home extends ScreenLayout {
   constructor() {
-    // Global container
-    this.container = Container();
+    super("home");
 
+    setTimeout(() => {
+      this.initContent();
+    }, 0);
+  }
+
+  initData() {}
+
+  initContent() {
     const heading = Text("h1", "Home");
 
     const button = document.createElement("button");
@@ -16,15 +22,10 @@ export class Home implements ScreenLayout {
     button.onclick = () => {
       Router.navigateTo("/products", { productId: "12" });
     };
-    this.log();
-    this.container.append(heading, button);
+    const logo = Container("center");
+    logo.innerHTML = logoIcon;
+    this.container.append(heading, button, logo);
   }
-
-  log() {
-    console.log("From Home");
-  }
-
-  initContent(): void {}
 
   render() {
     return this.container;

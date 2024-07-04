@@ -1,0 +1,21 @@
+.category_menu {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &-header_container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      @include font-heading($text-xl);
+    }
+
+    &-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+}
