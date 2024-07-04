@@ -1,0 +1,41 @@
+.tag {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-category {
+    @include font($text-sm, $font-medium);
+    width: 2.5rem;
+    border-radius: 0.25rem;
+    background-color: $gray;
+
+    &-active {
+      background-color: $blue;
+      color: white;
+    }
+  }
+
+  &-order_details {
+    @include font($text-xs, $font-semibold);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: white;
+
+    &-0 {
+      background-color: $bg-delivered;
+    }
+
+    &-1 {
+      background-color: $bg-canceled;
+    }
+
+    &-2 {
+      background-color: $bg-transport;
+    }
+
+    &-3 {
+      background-color: $bg-pending;
+    }
+  }
+}

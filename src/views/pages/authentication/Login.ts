@@ -1,17 +1,21 @@
 import { ScreenLayout } from "../../../types";
-import { Container, Text } from "../../components";
+import { Text } from "../../components";
 
-export class Login implements ScreenLayout {
-  container: HTMLDivElement;
-  heading: HTMLHeadingElement;
+export class Login extends ScreenLayout {
   constructor() {
-    // Global container
-    this.container = Container();
+    super("login");
+
+    setTimeout(() => {
+      this.initContent();
+    }, 0);
+  }
+
+  initData() {}
+
+  initContent() {
     const heading = Text("h1", "Login");
     this.container.append(heading);
   }
-
-  initContent(): void {}
 
   render() {
     return this.container;
