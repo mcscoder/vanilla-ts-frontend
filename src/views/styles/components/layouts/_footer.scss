@@ -6,8 +6,8 @@
   gap: 0.5rem;
   padding-top: 1rem;
   border-top: 1px solid rgba($color: $dark-gray, $alpha: 0.2);
-  margin: 6rem 3rem 3rem 1.5rem;
-  margin-top: 6rem !important;
+  margin: 0 3rem 3rem 1.5rem;
+  margin-top: 5rem !important;
 
   @include pc-small {
     margin: 1.5rem;
