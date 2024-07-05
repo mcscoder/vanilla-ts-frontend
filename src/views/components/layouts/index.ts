@@ -4,3 +4,4 @@ export * from "./NavSidebar";
 export * from "./Header";
 export * from "./Footer";
 export * from "./Main";
+export * from "./Footer";
