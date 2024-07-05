@@ -4,3 +4,4 @@ export * from "./category";
 export * from "./tag";
 export * from "./button";
 export * from "./breadcrumb";
+export * from "./orderStatCard";
