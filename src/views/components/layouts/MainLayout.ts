@@ -10,7 +10,7 @@ export class MainLayout extends ScreenLayout {
   main: Main;
   constructor() {
     // Container
-    super("global-container");
+    super("global_container");
     this.initContent();
   }
 
@@ -25,15 +25,16 @@ export class MainLayout extends ScreenLayout {
     this.main = new Main();
     const footer = new Footer();
 
-    // 3. Content container
-    const mainContainer = Container(
-      "content-container",
+    // 4. Content container
+    const contentContainer = Container(
+      "global_container-content_container",
+      header.render(),
       this.main.render(),
       footer.render()
     );
 
     // Add children to container
-    this.container.append(navSidebar.render(), header.render(), mainContainer);
+    this.container.append(navSidebar.render(), contentContainer);
   }
 
   render(...children: HTMLElement[]) {

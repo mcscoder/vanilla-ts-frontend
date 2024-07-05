@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: $gray;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -11,4 +15,12 @@ a {
   * {
     pointer-events: none;
   }
+}
+
+button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-family: inherit;
 }
