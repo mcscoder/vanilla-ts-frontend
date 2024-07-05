@@ -1,0 +1,36 @@
+.primary_footer {
+  background-color: $gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba($color: $dark-gray, $alpha: 0.2);
+  margin: 6rem 3rem 3rem 1.5rem;
+  margin-top: 6rem !important;
+
+  @include pc-small {
+    margin: 1.5rem;
+  }
+
+  @include mobile-large {
+    margin: 1.5rem 0.5rem;
+  }
+
+
+  @include mobile-medium {
+    flex-direction: column-reverse;
+  }
+
+  &-copyright {
+    @include font($text-sm, $font-normal);
+  }
+
+  &-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @include font($text-sm, $font-semibold);
+  }
+}
