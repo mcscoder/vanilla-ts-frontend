@@ -1,0 +1,15 @@
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem 3rem 1.5rem 1.5rem;
+
+
+  @include pc-small {
+    margin: 1.5rem;
+  }
+
+  @include mobile-large {
+    margin: 1.5rem 0.5rem;
+  }
+}
