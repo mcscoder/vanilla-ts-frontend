@@ -1,5 +1,10 @@
 import { ScreenLayout } from "../../../types";
-import { Breadcrumb, Container, OrderStatCard } from "../../components";
+import {
+  Breadcrumb,
+  Container,
+  OrderStatCard,
+  SaleGraph,
+} from "../../components";
 
 export class Home extends ScreenLayout {
   constructor() {
@@ -36,7 +41,14 @@ export class Home extends ScreenLayout {
       new OrderStatCard("Total Orders", 126.5, 34.7, "Oct 2023").render()
     );
 
-    this.container.append(container1, container2);
+    // 3. Container 3. [sale graph, best sellers card]
+    // 3.1. Sale graph
+    const saleGraph = new SaleGraph().render();
+    saleGraph.classList.add("flex-2");
+    // 3.2. Container
+    const container3 = Container("dashboard-container-3", saleGraph);
+
+    this.container.append(container1, container2, container3);
   }
 
   render() {

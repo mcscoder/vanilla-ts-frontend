@@ -5,3 +5,5 @@ export * from "./tag";
 export * from "./button";
 export * from "./breadcrumb";
 export * from "./orderStatCard";
+export * from "./saleGraph";
+export * from "./chart";

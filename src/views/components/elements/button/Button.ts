@@ -30,12 +30,17 @@ export type ButtonProps = {
   text?: string;
   startIcon?: string;
   endIcon?: string;
-  variant: ButtonVariant;
-  size: ButtonSize;
-  type: ButtonType;
-  className: string;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  type?: ButtonType;
+  className?: string;
   onClick: () => void;
 };
+
+export type ButtonAttributes = Pick<
+  ButtonProps,
+  "variant" | "size" | "type" | "className"
+>;
 
 export class Button extends Component<"button"> {
   constructor(private props: ButtonProps) {
@@ -49,6 +54,9 @@ export class Button extends Component<"button"> {
   }
 
   initContent() {
+    // Clear the button content
+    this.container.innerText = "";
+
     // 1. Start icon
     if (this.props.startIcon) {
       const startIcon = Icon(this.props.startIcon);
@@ -69,6 +77,22 @@ export class Button extends Component<"button"> {
     }
 
     // 4. Button class name
+    this.initButtonStyle(this.props);
+  }
+
+  private initEvents() {
+    // 1. Click event
+    this.container.addEventListener("click", this.props.onClick);
+  }
+
+  initButtonStyle(newProps: ButtonAttributes) {
+    // Set this props to new props
+    // If new props is undefined
+    // Do nothing and keep the value not change
+    this.props.variant = newProps.variant || this.props.variant || "primary";
+    this.props.size = newProps.size || this.props.size || "md";
+    this.props.type = newProps.type || this.props.type || "filled";
+
     const className = [
       "btn",
       VARIANTS[this.props.variant],
@@ -77,11 +101,6 @@ export class Button extends Component<"button"> {
       this.props.className,
     ];
     this.container.className = className.join(" ");
-  }
-
-  initEvents() {
-    // 1. Click event
-    this.container.addEventListener("click", this.props.onClick);
   }
 
   render() {
