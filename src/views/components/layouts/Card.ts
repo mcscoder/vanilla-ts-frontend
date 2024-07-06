@@ -1,8 +1,8 @@
 import { Component } from "../../../types";
 
 export class Card extends Component {
-  constructor(...children: Node[] | string[]) {
-    super("card");
+  constructor(className: string, ...children: Node[] | string[]) {
+    super(`card ${className}`);
     this.container.append(...children);
   }
 

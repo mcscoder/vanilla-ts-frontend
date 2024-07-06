@@ -22,11 +22,20 @@
     }
 
     &-3 {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1rem;
 
       @include tablet {
-        flex-direction: column;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+
+      &-graph {
+        grid-column: 2 span;
+
+        @include tablet {
+          grid-column: span 1 / span 1;
+        }
       }
     }
   }

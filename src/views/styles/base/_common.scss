@@ -14,14 +14,6 @@
   justify-content: center;
 }
 
-.flex-1 {
-  flex: 1;
-}
-
-.flex-2 {
-  flex: 2;
-}
-
 .icon_container {
   display: inline-flex;
 }
@@ -38,6 +30,14 @@
   @for $i from 0 through 5 {
     &-#{$i} {
       flex: $i;
+    }
+  }
+}
+
+.col-span {
+  @for $i from 0 through 5 {
+    &-#{$i} {
+      grid-column: span #{$i} / span #{$i};
     }
   }
 }

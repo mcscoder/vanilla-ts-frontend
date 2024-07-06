@@ -1,6 +1,7 @@
 import { ScreenLayout } from "../../../types";
 import {
   Breadcrumb,
+  Card,
   Container,
   OrderStatCard,
   SaleGraph,
@@ -43,10 +44,18 @@ export class Home extends ScreenLayout {
 
     // 3. Container 3. [sale graph, best sellers card]
     // 3.1. Sale graph
-    const saleGraph = new SaleGraph().render();
-    saleGraph.classList.add("flex-2");
-    // 3.2. Container
-    const container3 = Container("dashboard-container-3", saleGraph);
+    const saleGraph = new Card(
+      "dashboard-container-3-graph",
+      new SaleGraph().render()
+    );
+    // 3.2. Best sellers card
+    const bestSellersCard = Container("flex-1", "test");
+    // 3.3. Container
+    const container3 = Container(
+      "dashboard-container-3",
+      saleGraph.render(),
+      bestSellersCard
+    );
 
     this.container.append(container1, container2, container3);
   }

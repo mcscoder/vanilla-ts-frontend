@@ -1,5 +1,4 @@
 import { Component } from "../../../../types";
-import { Card } from "../../layouts";
 import { Button } from "../button";
 import { Chart, CHART_TYPES } from "../chart";
 import { Container, CreateElement } from "../htmls";
@@ -110,6 +109,6 @@ export class SaleGraph extends Component {
   }
 
   render() {
-    return new Card(this.container).render();
+    return this.container;
   }
 }

@@ -80,6 +80,6 @@ export class OrderStatCard extends Component {
   }
 
   render() {
-    return new Card(this.container).render();
+    return new Card("", this.container).render();
   }
 }
