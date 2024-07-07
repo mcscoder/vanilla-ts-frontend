@@ -1,0 +1,46 @@
+.product_stat_item {
+  &-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &-1 {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      gap: 0.25rem;
+    }
+
+    &-2 {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      gap: 0.25rem;
+    }
+  }
+
+  &-image {
+    border-radius: 0.75rem;
+    object-fit: cover;
+  }
+
+  &-title {
+    @include font($text-base, $font-semibold);
+  }
+
+  &-price {
+    &-1 {
+      @include font($text-sm, $font-semibold);
+      opacity: 0.6;
+    }
+    &-2 {
+      @include font-heading($text-base);
+    }
+  }
+
+  &-sales {
+    @include font($text-sm, $font-semibold);
+    opacity: 0.6;
+  }
+}

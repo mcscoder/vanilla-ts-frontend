@@ -7,3 +7,4 @@ export * from "./breadcrumb";
 export * from "./orderStatCard";
 export * from "./saleGraph";
 export * from "./chart";
+export * from "./productStatCard";
