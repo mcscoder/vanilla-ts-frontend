@@ -1,6 +1,6 @@
 export function Container(
   className: string = "",
-  ...children: Node[]
+  ...children: Node[] | string[]
 ): HTMLDivElement {
   const container = document.createElement("div");
   container.className = className;

@@ -1,0 +1,17 @@
+.breadcrumb {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &-title {
+    @include font-heading($text-2xl);
+  }
+
+  &-path_container {
+    @include font($text-base, $font-semibold);
+    display: flex;
+    gap: 0.25rem;
+  }
+}

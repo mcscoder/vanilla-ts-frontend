@@ -12,7 +12,7 @@ export abstract class Component<
     tagName: T = "div" as T,
     options?: ElementCreationOptions
   ) {
-    this.container = CreateElement(tagName, className, options);
+    this.container = CreateElement(tagName, className, [], options);
   }
   abstract initContent(...params: any[]): void;
   abstract render(...params: any[]): HTMLElementTagNameMap[T];
