@@ -8,3 +8,5 @@ export * from "./orderStatCard";
 export * from "./saleGraph";
 export * from "./chart";
 export * from "./productStatCard";
+export * from "./ordersTable";
+export * from "./table";
