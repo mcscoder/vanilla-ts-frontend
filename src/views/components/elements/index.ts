@@ -12,3 +12,4 @@ export * from "./ordersTable";
 export * from "./table";
 export * from "./productCard";
 export * from "./pagination";
+export * from "./dropDownMenu";
