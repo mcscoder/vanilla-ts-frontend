@@ -10,3 +10,5 @@ export * from "./chart";
 export * from "./productStatCard";
 export * from "./ordersTable";
 export * from "./table";
+export * from "./productCard";
+export * from "./pagination";

@@ -103,6 +103,10 @@ export class Button extends Component<"button"> {
     this.container.className = className.join(" ");
   }
 
+  disable(isDisable: boolean) {
+    this.container.disabled = isDisable;
+  }
+
   render() {
     return this.container;
   }

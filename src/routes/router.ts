@@ -49,6 +49,7 @@ export class Router {
             routerStates.currentScreenPath = screenPath;
 
             const route2Component = route2.component;
+            route2Component.initData();
             return {
               node: route1Component.render(route2Component.render()),
               path: screenPath,
@@ -121,10 +122,10 @@ export class Router {
 
   // Interact with url search params
   static urlSearchParams<T = void>(
-    action: (searchParams: URLSearchParams) => T
+    action: (searchParams: URLSearchParams, url: URL) => T
   ): T {
     const url = new URL(location.href);
-    return action(url.searchParams);
+    return action(url.searchParams, url);
   }
 
   // Get Search Param
@@ -137,15 +138,17 @@ export class Router {
 
   // Set Search Param
   static setSearchParam(key: string, value: string) {
-    this.urlSearchParams((searchParams) => {
+    this.urlSearchParams((searchParams, url) => {
       searchParams.set(key, value);
+      this.pushState(url);
     });
   }
 
   // Delete Search Param
   static deleteSearchParam(key: string, value?: string) {
-    this.urlSearchParams((searchParams) => {
+    this.urlSearchParams((searchParams, url) => {
       searchParams.delete(key, value);
+      this.pushState(url);
     });
   }
 
