@@ -106,7 +106,7 @@ const bestSellerTest: Product[] = [
   },
 ];
 
-const orderTableTest: Order[] = [
+export const orderTableTest: Order[] = [
   {
     orderStatusId: 2,
     shippingId: 1,

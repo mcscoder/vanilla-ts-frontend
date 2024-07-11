@@ -27,7 +27,7 @@ export type ButtonSize = keyof typeof SIZES;
 export type ButtonType = keyof typeof TYPES;
 
 export type ButtonProps = {
-  text?: string;
+  text?: string | HTMLElement;
   startIcon?: string;
   endIcon?: string;
   variant?: ButtonVariant;
@@ -65,9 +65,13 @@ export class Button extends Component<"button"> {
 
     // 2. Text
     if (this.props.text) {
-      const text = CreateElement("span");
-      text.innerText = this.props.text;
-      this.container.append(text);
+      if (typeof this.props.text === "string") {
+        const text = CreateElement("span");
+        text.innerText = this.props.text;
+        this.container.append(text);
+      } else {
+        this.container.append(this.props.text);
+      }
     }
 
     // 3. End icon
