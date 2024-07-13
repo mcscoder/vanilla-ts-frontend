@@ -45,16 +45,19 @@ class ApiService {
   async request<T, K extends keyof ApiEndpoints>(
     method: HttpMethod,
     endpointKey: K,
-    params: K extends keyof ApiEndpoints
-      ? Parameters<ApiEndpoints[K]>[0]
-      : never,
+    params: Parameters<ApiEndpoints[K]>[0],
+    searchParams?: [key: string, value: string][],
     body?: unknown,
     headers: Record<string, string> = { "Content-Type": "application/json" }
   ): Promise<T> {
     const endpointFunction = endpoints[endpointKey] as EndpointFunction<
       Parameters<ApiEndpoints[typeof endpointKey]>[0]
     >;
-    const url = endpointFunction(params);
+    let url = endpointFunction(params);
+
+    if (searchParams) {
+      url += "?" + searchParams.map((search) => search.join("=")).join("&");
+    }
 
     const response = await fetch(url, {
       method,
