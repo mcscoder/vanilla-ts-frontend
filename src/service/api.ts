@@ -4,7 +4,7 @@ type EndpointFunction<T = object> = (arg: T) => string;
 
 interface ApiEndpoints {
   getOrder: EndpointFunction<{ orderId: number }>;
-  getOrders: EndpointFunction<{ orderId?: number }>;
+  getOrders: EndpointFunction<{ orderStatusId?: number }>;
   getCategory: EndpointFunction<{ categoryId: number }>;
   getCategories: EndpointFunction<void>;
   getProduct: EndpointFunction<{ productId: number }>;
@@ -23,7 +23,7 @@ interface ApiEndpoints {
 
 const endpoints: ApiEndpoints = {
   getOrder: ({ orderId }) => `/api/order/${orderId}`,
-  getOrders: ({ orderId = "" }) => `/api/orders/${orderId}`,
+  getOrders: ({ orderStatusId = "" }) => `/api/orders/${orderStatusId}`,
   getCategory: ({ categoryId }) => `/api/category/${categoryId}`,
   getCategories: () => `/api/categories`,
   getProduct: ({ productId }) => `/api/product/${productId}`,
