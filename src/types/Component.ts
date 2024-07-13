@@ -14,6 +14,6 @@ export abstract class Component<
   ) {
     this.container = CreateElement(tagName, className, [], options);
   }
-  abstract initContent(...params: any[]): void;
+  protected abstract initContent(...params: any[]): void;
   abstract render(...params: any[]): HTMLElementTagNameMap[T];
 }

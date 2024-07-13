@@ -1,4 +1,3 @@
-import { Router } from "../../../routes";
 import { ScreenLayout } from "../../../types";
 import { Text } from "../../components";
 
@@ -20,8 +19,6 @@ export class OrderDetails extends ScreenLayout {
     button.textContent = "Click me";
 
     this.container.append(heading, button);
-
-    console.log(Router.getParams()["orderId"]);
   }
 
   render() {
