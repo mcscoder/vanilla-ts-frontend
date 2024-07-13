@@ -8,6 +8,7 @@ export class Router {
 
     // Auto navigate to the corresponding screen component when custom event "urlChanged" dispatched
     CustomEventManager.addEventListener("urlChanged", () => {
+      console.log("asdfasdf");
       Router.navigateToMatchedComponent();
     });
 
@@ -50,6 +51,7 @@ export class Router {
 
             const route2Component = route2.component;
             route2Component.initData();
+            console.log("initData");
             return {
               node: route1Component.render(route2Component.render()),
               path: screenPath,
