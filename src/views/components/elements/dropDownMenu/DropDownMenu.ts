@@ -2,25 +2,6 @@ import { chevronDownIcon } from "../../../../constants";
 import { Component } from "../../../../types";
 import { Container, CreateElement, Icon } from "../htmls";
 
-export const dropdownTest: MenuItem[] = [
-  {
-    value: 0,
-    label: "Delivered",
-  },
-  {
-    value: 1,
-    label: "Canceled",
-  },
-  {
-    value: 2,
-    label: "Transport",
-  },
-  {
-    value: 3,
-    label: "Pending",
-  },
-];
-
 export type MenuItem = {
   value: number | undefined;
   label: string;
