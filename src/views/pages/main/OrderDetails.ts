@@ -1,24 +1,53 @@
+import { OrderDetailsController } from "../../../controllers";
 import { ScreenLayout } from "../../../types";
-import { Text } from "../../components";
+import {
+  Breadcrumb,
+  Container,
+  CustomerDetailsSection,
+  OrderedProductsSection,
+} from "../../components";
 
-export class OrderDetails extends ScreenLayout {
+export class OrderDetails extends ScreenLayout<OrderDetailsController> {
   constructor() {
-    super("order_details");
+    // Leading class name: "order_details"
 
-    setTimeout(() => {
-      this.initContent();
-    }, 0);
+    // Container
+    super("order_details-container", new OrderDetailsController());
   }
 
-  initData() {}
+  initData() {
+    super.initData();
+    this.controller.fetchData(this.initContent.bind(this));
+  }
 
   initContent() {
-    const heading = Text("h1", "OrderDetails");
+    // 1. Container 1. [breadcrumb]
+    const container1 = Container("order_details-container-1");
+    {
+      // 1.1. Breadcrumb
+      const breadcrumb = new Breadcrumb(["ordersList", "orderDetails"]);
+      // Add children
+      container1.append(breadcrumb.render());
+    }
 
-    const button = document.createElement("button");
-    button.textContent = "Click me";
+    // 2. Customer information section
+    const customerSection = new CustomerDetailsSection(
+      this.controller.order,
+      this.controller.orderStatuses,
+      (orderStatusId, note) => {
+        this.controller.onSave(orderStatusId, note, this.initData.bind(this));
+      }
+    );
 
-    this.container.append(heading, button);
+    // 3. Ordered products section
+    const productsSection = new OrderedProductsSection(this.controller.order);
+
+    // Add children
+    this.container.append(
+      container1,
+      customerSection.render(),
+      productsSection.render()
+    );
   }
 
   render() {

@@ -1,27 +1,28 @@
 import { Component } from "../../../../types";
 
 const VARIANTS = {
-  category_Normal: "tag tag-category",
-  category_Active: "tag tag-category tag-category-active",
-  orderDetails_delivered: "tag tag-order_details tag-order_details-0", // delivered
-  orderDetails_canceled: "tag tag-order_details tag-order_details-1", // canceled
-  orderDetails_transport: "tag tag-order_details tag-order_details-2", // transport
-  orderDetails_pending: "tag tag-order_details tag-order_details-3", // pending
+  categories: ["tag tag-category", "tag tag-category tag-category-active"],
+  orderStatuses: [
+    "tag tag-order_details tag-order_details-0", // delivered
+    "tag tag-order_details tag-order_details-1", // canceled
+    "tag tag-order_details tag-order_details-2", // transport
+    "tag tag-order_details tag-order_details-3", // pending
+  ],
 };
 
 export type TagVariant = keyof typeof VARIANTS;
 
 export class Tag extends Component {
-  constructor(text: string, variant: TagVariant) {
-    const className = VARIANTS[variant];
+  constructor(text: string, variant: TagVariant, type: number) {
+    const className = VARIANTS[variant][type];
     super(className);
     this.container.textContent = text;
   }
 
   initContent() {}
 
-  updateTagVariant(variant: TagVariant) {
-    this.container.className = VARIANTS[variant];
+  updateTagVariant(variant: TagVariant, type: number) {
+    this.container.className = VARIANTS[variant][type];
   }
 
   render() {

@@ -1,9 +1,9 @@
-import { Component } from "../../../../types";
 import { CreateElement } from "../htmls";
+import { TableComponent } from "./TableComponent";
 
 export type TableHeaderData = (string | HTMLElement)[];
 
-export class TableHeader extends Component<"thead"> {
+export class TableHeader extends TableComponent<"thead"> {
   private cellElements: HTMLTableCellElement[] = [];
   constructor(private headings: TableHeaderData) {
     // Leading class name: "list_table-table-header"
@@ -31,6 +31,19 @@ export class TableHeader extends Component<"thead"> {
 
     // Add children
     this.container.append(tableRow);
+  }
+
+  addColumnClassName(columnIndex: number, ...className: string[]): void {
+    this.cellElements[columnIndex].classList.add(...className);
+  }
+
+  removeColumnClassName(columnIndex: number, ...className: string[]): void {
+    const classList = this.cellElements[columnIndex].classList;
+    className.forEach((name) => {
+      if (classList.contains(name)) {
+        classList.remove(name);
+      }
+    });
   }
 
   render() {
