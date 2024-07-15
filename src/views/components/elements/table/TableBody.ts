@@ -37,6 +37,23 @@ export class TableBody extends Component<"tbody"> {
     });
   }
 
+  addColumnClassName(columnIndex: number, ...className: string[]): void {
+    this.cellElements.forEach((rowCellElements) => {
+      rowCellElements[columnIndex].classList.add(...className);
+    });
+  }
+
+  removeColumnClassName(columnIndex: number, ...className: string[]): void {
+    this.cellElements.forEach((rowCellElements) => {
+      const columnClassList = rowCellElements[columnIndex].classList;
+      className.forEach((name) => {
+        if (columnClassList.contains(name)) {
+          columnClassList.remove(name);
+        }
+      });
+    });
+  }
+
   render() {
     return this.container;
   }

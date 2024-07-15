@@ -25,7 +25,7 @@ export class CategoryLink extends Link {
     text.textContent = this.categoryData.data.name;
 
     // 2. Tag
-    this.tag = new Tag(`${this.categoryData.data.quantity}`, "category_Normal");
+    this.tag = new Tag(`${this.categoryData.data.quantity}`, "categories", 0);
     this.initTagClassName();
 
     // Add children to container
@@ -45,11 +45,11 @@ export class CategoryLink extends Link {
       if (screenPath === routerStates.currentScreenPath) {
         const { categoryId } = Router.getParams();
         if (Number(categoryId) === this.categoryData.data.id) {
-          this.tag.updateTagVariant("category_Active");
+          this.tag.updateTagVariant("categories", 1);
           return;
         }
       }
-      this.tag.updateTagVariant("category_Normal");
+      this.tag.updateTagVariant("categories", 0);
     }, 0);
   }
 

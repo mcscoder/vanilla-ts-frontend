@@ -3,7 +3,7 @@ import { Component } from "../../../../types";
 import { Container, CreateElement, Icon } from "../htmls";
 
 export type MenuItem = {
-  value: number | undefined;
+  value: number;
   label: string;
 };
 
@@ -140,6 +140,10 @@ export class DropDownMenu extends Component<"button"> {
     this.renderOptions();
     this.displayDropDown(false);
     this.onChange({ value, label }, optionIndex);
+  }
+
+  getValue(): number {
+    return this.items[this.currentIndex].value;
   }
 
   render() {

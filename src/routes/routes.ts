@@ -62,8 +62,11 @@ export const routes: Route[] = [
         component: new AllProducts(),
       },
       { path: screenPaths.ordersList.path, component: new OrderList() },
-      { path: screenPaths.home.path, component: new OrderDetails() },
-      { path: screenPaths.home.path, component: new ProductDetails() },
+      { path: screenPaths.orderDetails.path, component: new OrderDetails() },
+      {
+        path: screenPaths.productDetails.path,
+        component: new ProductDetails(),
+      },
     ],
   },
   {
