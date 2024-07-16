@@ -14,3 +14,5 @@ export * from "./productCard";
 export * from "./pagination";
 export * from "./dropDownMenu";
 export * from "./orderDetails";
+export * from "./productDetailsForm";
+export * from "./dragDropUploader";

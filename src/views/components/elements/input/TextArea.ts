@@ -5,9 +5,13 @@ export type TextAreaOption = {
 };
 
 export class TextArea extends TextField<"textarea"> {
-  constructor(options: TextAreaOption = {}, className: string = "") {
+  constructor(
+    options: TextAreaOption = {},
+    className: string = "",
+    onChange?: (value: string) => void
+  ) {
     // TextArea
-    super(`input input-textarea ${className}`, "textarea");
+    super(`input input-textarea ${className}`, "textarea", onChange);
 
     for (const key in options) {
       (this.container[key as keyof HTMLTextAreaElement] as unknown) =
