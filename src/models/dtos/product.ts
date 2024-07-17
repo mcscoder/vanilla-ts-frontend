@@ -17,3 +17,16 @@ export type Product = {
   category: Category;
   productImages: ProductImage[];
 };
+
+export type PostProductBody = Pick<
+  Product,
+  | "name"
+  | "description"
+  | "quantity"
+  | "regularPrice"
+  | "salePrice"
+  | "sku"
+  | "sales"
+  | "brandId"
+  | "categoryId"
+>;

@@ -1,4 +1,4 @@
-import { Brand, Category, Product } from "../models";
+import { Brand, Category, PostProductBody, Product } from "../models";
 import { Router } from "../routes";
 import { apiService } from "../service";
 import { Controller } from "./controller";
@@ -48,5 +48,91 @@ export class ProductDetailsController extends Controller {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  private async updateImages(
+    deleteImageIds: number[],
+    newImageFiles: (File | undefined)[]
+  ) {
+    const formData = new FormData();
+    newImageFiles.forEach((file) => {
+      if (file) {
+        formData.append("files", file);
+      }
+    });
+
+    await Promise.allSettled([
+      // 1. Delete images
+      apiService.request(
+        "DELETE",
+        "deleteProductImage",
+        undefined,
+        undefined,
+        deleteImageIds
+      ),
+      // 2. Update new images
+      apiService.request(
+        "POST",
+        "uploadProductImage",
+        { productId: this.product.id },
+        undefined,
+        formData,
+        {},
+        false
+      ),
+    ]);
+  }
+
+  // 1. Update
+  async updateProduct(
+    deleteImageIds: number[],
+    newImageFiles: (File | undefined)[]
+  ) {
+    await Promise.allSettled([
+      apiService.request(
+        "PATCH",
+        "patchProduct",
+        {
+          productId: this.product.id,
+        },
+        undefined,
+        this.product
+      ),
+      this.updateImages(deleteImageIds, newImageFiles),
+    ]);
+  }
+
+  // 2. Delete
+  async deleteProduct() {
+    await apiService.request("PATCH", "patchDeprecatedProduct", {
+      productId: this.product.id,
+    });
+  }
+
+  // 3. Add
+  async addProduct() {
+    const {
+      name,
+      description,
+      quantity,
+      regularPrice,
+      salePrice,
+      sku,
+      sales,
+      brandId,
+      categoryId,
+    }: PostProductBody = this.product;
+
+    await apiService.request("POST", "postProduct", undefined, undefined, {
+      name,
+      description,
+      quantity,
+      regularPrice,
+      salePrice,
+      sku,
+      sales,
+      brandId,
+      categoryId,
+    });
   }
 }

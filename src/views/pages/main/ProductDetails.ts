@@ -1,10 +1,12 @@
 import { ProductDetailsController } from "../../../controllers/productDetails";
+import { Router } from "../../../routes";
 import { ScreenLayout } from "../../../types";
 import {
   Breadcrumb,
   Card,
   Container,
   ProductDetailsForm,
+  Toast,
 } from "../../components";
 
 export class ProductDetails extends ScreenLayout<ProductDetailsController> {
@@ -37,7 +39,37 @@ export class ProductDetails extends ScreenLayout<ProductDetailsController> {
       const productDetailsForm = new ProductDetailsForm(
         this.controller.product,
         this.controller.categories,
-        this.controller.brands
+        this.controller.brands,
+        {
+          onUpdate: async () => {
+            await this.controller.updateProduct(
+              productDetailsForm.productGallery.deleteImageIds,
+              productDetailsForm.productGallery.newImageFiles
+            );
+            Toast.alert({
+              message: "Update product success",
+              type: "SUCCESS",
+            });
+            this.initData();
+          },
+          onDelete: async () => {
+            await this.controller.deleteProduct();
+            Router.navigateTo("/products");
+            Toast.alert({
+              message: "Update product success",
+              type: "SUCCESS",
+            });
+          },
+          onCancel: () => {},
+          onAdd: async () => {
+            await this.controller.addProduct();
+            Router.navigateTo("/products");
+            Toast.alert({
+              message: "Product has been added",
+              type: "SUCCESS",
+            });
+          },
+        }
       );
       // Add children
       container2.container.append(productDetailsForm.render());

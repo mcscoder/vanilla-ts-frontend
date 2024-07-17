@@ -5,6 +5,7 @@ import { Button } from "../button";
 import { DropDownMenu } from "../dropDownMenu";
 import { Container, Form } from "../htmls";
 import { Input, InputContainer, TextArea } from "../input";
+import { Toast } from "../toast";
 import { ProductGallery } from "./ProductGallery";
 import { ProductThumbnail } from "./ProductThumbnail";
 
@@ -75,9 +76,9 @@ export class ProductDetailsForm extends Form {
             this.categories.map(({ id, name }) => {
               return { value: id, label: name };
             }),
-            this.product.category.id,
+            this.product.categoryId,
             ({ value }) => {
-              this.product.category.id = value;
+              this.product.categoryId = value;
             },
             "Select Category"
           )
@@ -89,9 +90,9 @@ export class ProductDetailsForm extends Form {
             this.brandNames.map(({ id, name }) => {
               return { value: id, label: name };
             }),
-            this.product.brand.id,
+            this.product.brandId,
             ({ value }) => {
-              this.product.brand.id = value;
+              this.product.brandId = value;
             },
             "Select Brand"
           )
@@ -206,16 +207,16 @@ export class ProductDetailsForm extends Form {
         className: "product_details_form-function_button",
         onClick: () => {
           if (this.isFormValidity()) {
-            // ConfirmToast.render({
-            //   title: "Update product",
-            //   message: "Are you sure? this action cannot be undone",
-            //   confirmationLabel: "Update",
-            //   onClickConfirm: (isConfirmed) => {
-            //     if (isConfirmed) {
-            //       this.actions.onUpdate();
-            //     }
-            //   },
-            // });
+            Toast.confirmation({
+              title: "Update product",
+              message: "Are you sure? this action cannot be undone",
+              confirmLabel: "Update",
+              onClickConfirm: (isConfirmed) => {
+                if (isConfirmed) {
+                  this.actions.onUpdate();
+                }
+              },
+            });
           }
         },
       });
@@ -227,16 +228,16 @@ export class ProductDetailsForm extends Form {
         type: "filled",
         className: "product_details_form-function_button",
         onClick: () => {
-          // ConfirmToast.render({
-          //   title: "Discontinue product",
-          //   message: "Are you sure? this action cannot be undone",
-          //   confirmationLabel: "Discontinue",
-          //   onClickConfirm: (isConfirmed) => {
-          //     if (isConfirmed) {
-          //       this.actions.onDelete();
-          //     }
-          //   },
-          // });
+          Toast.confirmation({
+            title: "Discontinue product",
+            message: "Are you sure? this action cannot be undone",
+            confirmLabel: "Discontinue",
+            onClickConfirm: (isConfirmed) => {
+              if (isConfirmed) {
+                this.actions.onDelete();
+              }
+            },
+          });
         },
       });
       // 3. Cancel button
@@ -267,17 +268,17 @@ export class ProductDetailsForm extends Form {
         className: "product_details_form-function_button",
         onClick: () => {
           if (this.isFormValidity()) {
-            // ConfirmToast.render({
-            //   title: "Add product",
-            //   message: "Are you sure? this action cannot be undone",
-            //   confirmationLabel: "Add itttttt!",
-            //   cancelLabel: "Hold on",
-            //   onClickConfirm: (isConfirmed) => {
-            //     if (isConfirmed) {
-            //       this.actions.onAdd();
-            //     }
-            //   },
-            // });
+            Toast.confirmation({
+              title: "Add product",
+              message: "Are you sure? this action cannot be undone",
+              confirmLabel: "Add itttttt!",
+              cancelLabel: "Hold on",
+              onClickConfirm: (isConfirmed) => {
+                if (isConfirmed) {
+                  this.actions.onAdd();
+                }
+              },
+            });
           }
         },
       });
@@ -291,21 +292,21 @@ export class ProductDetailsForm extends Form {
   }
 
   private isFormValidity() {
-    if (this.product.category.id === -1) {
-      // Toast.render({ message: "You must select a category", type: "ERROR" });
+    if (this.product.categoryId === -1) {
+      Toast.alert({ message: "You must select a category", type: "ERROR" });
       return false;
     }
 
-    if (this.product.brand.id === -1) {
-      // Toast.render({ message: "You must select a brand", type: "ERROR" });
+    if (this.product.brandId === -1) {
+      Toast.alert({ message: "You must select a brand", type: "ERROR" });
       return false;
     }
 
     if (this.productGallery.numberOfImages === 0) {
-      // Toast.render({
-      //   message: "You must specific at least an image",
-      //   type: "ERROR",
-      // });
+      Toast.alert({
+        message: "You must specific at least an image",
+        type: "ERROR",
+      });
       return false;
     }
     return this.container.checkValidity();

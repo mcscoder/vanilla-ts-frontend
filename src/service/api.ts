@@ -49,8 +49,9 @@ class ApiService {
     endpointKey: K,
     params: Parameters<ApiEndpoints[K]>[0],
     searchParams?: [key: string, value: string][],
-    body?: unknown,
-    headers: Record<string, string> = { "Content-Type": "application/json" }
+    body?: any,
+    headers: Record<string, string> = { "Content-Type": "application/json" },
+    stringify: boolean = true
   ): Promise<T> {
     const endpointFunction = endpoints[endpointKey] as EndpointFunction<
       Parameters<ApiEndpoints[typeof endpointKey]>[0]
@@ -64,7 +65,7 @@ class ApiService {
     const response = await fetch(url, {
       method,
       headers,
-      body: body ? JSON.stringify(body) : undefined,
+      body: body ? (stringify ? JSON.stringify(body) : body) : undefined,
     });
 
     if (!response.ok) {
