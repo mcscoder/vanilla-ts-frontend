@@ -1,9 +1,10 @@
+import { LoginController } from "../../../controllers";
 import { ScreenLayout } from "../../../types";
 import { Text } from "../../components";
 
-export class Login extends ScreenLayout {
+export class Login extends ScreenLayout<LoginController> {
   constructor() {
-    super("login");
+    super("login", new LoginController());
 
     setTimeout(() => {
       this.initContent();

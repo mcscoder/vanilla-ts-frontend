@@ -1,3 +1,4 @@
+import { MainLayoutController } from "../../../controllers";
 import { ScreenLayout } from "../../../types";
 // import { NavSidebar, Header, Footer, Main } from ".";
 import { Container } from "../elements";
@@ -6,11 +7,11 @@ import { Header } from "./Header";
 import { Main } from "./Main";
 import { NavSidebar } from "./NavSidebar";
 
-export class MainLayout extends ScreenLayout {
+export class MainLayout extends ScreenLayout<MainLayoutController> {
   main: Main;
   constructor() {
     // Container
-    super("global_container");
+    super("global_container", new MainLayoutController());
     this.initContent();
   }
 

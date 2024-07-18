@@ -16,3 +16,9 @@ export const creditCardFormat = (number: string) => {
   }
   return result.split("").reverse().join("");
 };
+
+export const handleNumberInput = (e: Event) => {
+  const regex = /\D/g;
+  const target = e.target as HTMLInputElement;
+  target.value = target.value.replace(regex, "");
+};
