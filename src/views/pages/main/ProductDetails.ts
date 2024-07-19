@@ -10,11 +10,11 @@ import {
 } from "../../components";
 
 export class ProductDetails extends ScreenLayout<ProductDetailsController> {
-  constructor() {
+  constructor(private isAddNew: boolean) {
     // Leading class name: "product_details"
 
     // Container
-    super("product_details-container", new ProductDetailsController());
+    super("product_details-container", new ProductDetailsController(isAddNew));
   }
 
   initData() {
@@ -62,14 +62,17 @@ export class ProductDetails extends ScreenLayout<ProductDetailsController> {
           },
           onCancel: () => {},
           onAdd: async () => {
-            await this.controller.addProduct();
+            await this.controller.addProduct(
+              productDetailsForm.productGallery.newImageFiles
+            );
             Router.navigateTo("/products");
             Toast.alert({
               message: "Product has been added",
               type: "SUCCESS",
             });
           },
-        }
+        },
+        this.isAddNew
       );
       // Add children
       container2.container.append(productDetailsForm.render());

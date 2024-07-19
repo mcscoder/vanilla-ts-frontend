@@ -44,6 +44,10 @@ export const screenPaths = {
     path: "/product-details/:productId",
     name: "Product Details",
   },
+  newProduct: {
+    path: "/new-product",
+    name: "New Product",
+  },
   login: {
     path: "/login",
     name: "Login",
@@ -65,7 +69,11 @@ export const routes: Route[] = [
       { path: screenPaths.orderDetails.path, component: new OrderDetails() },
       {
         path: screenPaths.productDetails.path,
-        component: new ProductDetails(),
+        component: new ProductDetails(false),
+      },
+      {
+        path: screenPaths.newProduct.path,
+        component: new ProductDetails(true),
       },
     ],
   },

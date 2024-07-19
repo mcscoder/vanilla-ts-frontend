@@ -181,7 +181,7 @@ export class ProductDetailsForm extends Form {
       {
         // 1. Product thumbnail
         const thumbnail = new ProductThumbnail(
-          this.product.productImages
+          this.product.productImages[0]
             ? this.product.productImages[0].imageURL
             : defaultThumbnail,
           "product_details_form-gallery-big_thumbnail"
