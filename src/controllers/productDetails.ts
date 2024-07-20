@@ -8,6 +8,10 @@ export class ProductDetailsController extends Controller {
   categories: Category[];
   brands: Brand[];
 
+  constructor(private isAddNew: boolean) {
+    super();
+  }
+
   async fetchData(initContent: () => void) {
     await Promise.allSettled([
       this.fetchProduct(),
@@ -18,6 +22,31 @@ export class ProductDetailsController extends Controller {
   }
 
   private async fetchProduct() {
+    if (this.isAddNew) {
+      this.product = {
+        name: "",
+        description: "",
+        quantity: 0,
+        regularPrice: 0,
+        salePrice: 0,
+        sku: "#",
+        sales: 0,
+        categoryId: 0,
+        brandId: 0,
+        id: 0,
+        brand: {
+          id: 0,
+          name: "",
+        },
+        category: {
+          id: 0,
+          name: "0",
+          quantity: 0,
+        },
+        productImages: [],
+      };
+      return;
+    }
     const { productId } = Router.getParams();
     if (productId) {
       try {
@@ -110,7 +139,7 @@ export class ProductDetailsController extends Controller {
   }
 
   // 3. Add
-  async addProduct() {
+  async addProduct(newImageFiles: (File | undefined)[]) {
     const {
       name,
       description,
@@ -123,16 +152,25 @@ export class ProductDetailsController extends Controller {
       categoryId,
     }: PostProductBody = this.product;
 
-    await apiService.request("POST", "postProduct", undefined, undefined, {
-      name,
-      description,
-      quantity,
-      regularPrice,
-      salePrice,
-      sku,
-      sales,
-      brandId,
-      categoryId,
-    });
+    const { id }: Product = await apiService.request(
+      "POST",
+      "postProduct",
+      undefined,
+      undefined,
+      {
+        name,
+        description,
+        quantity,
+        regularPrice,
+        salePrice,
+        sku,
+        sales,
+        brandId,
+        categoryId,
+      }
+    );
+
+    this.product.id = id;
+    await this.updateImages([], newImageFiles);
   }
 }
