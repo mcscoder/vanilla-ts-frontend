@@ -52,6 +52,10 @@ export const screenPaths = {
     path: "/login",
     name: "Login",
   },
+  register: {
+    path: "/register",
+    name: "Register",
+  },
 };
 
 export const routes: Route[] = [
@@ -76,6 +80,10 @@ export const routes: Route[] = [
         component: new ProductDetails(true),
       },
     ],
+  },
+  {
+    path: screenPaths.login.path,
+    component: new Login(),
   },
   {
     path: screenPaths.login.path,
