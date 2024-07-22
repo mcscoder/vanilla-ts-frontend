@@ -86,7 +86,7 @@ export const routes: Route[] = [
     component: new Login(),
   },
   {
-    path: screenPaths.login.path,
-    component: new Login(),
+    path: screenPaths.register.path,
+    component: new Login(true),
   },
 ];
