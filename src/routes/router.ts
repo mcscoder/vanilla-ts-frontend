@@ -1,14 +1,14 @@
+import { storageKey } from "../constants";
+import { LoginController } from "../controllers";
 import { CustomEventManager } from "../events";
+import { AdminLoginRequest } from "../models";
 import { ScreenRoute } from "../types";
 import { routerStates, routes } from "./routes";
 
 export class Router {
   constructor() {
-    Router.navigateToMatchedComponent();
-
     // Auto navigate to the corresponding screen component when custom event "urlChanged" dispatched
     CustomEventManager.addEventListener("urlChanged", () => {
-      console.log("asdfasdf");
       Router.navigateToMatchedComponent();
     });
 
@@ -16,6 +16,64 @@ export class Router {
     window.addEventListener("popstate", () => {
       CustomEventManager.dispatchEvent("urlChanged");
     });
+
+    this.authentication();
+  }
+
+  private async authentication() {
+    const loginController = new LoginController();
+    // Get admin data from local storage
+    let admin = localStorage.getItem(storageKey.admin);
+    if (admin) {
+      const ok = await loginController.authenticate({
+        admin: JSON.parse(admin) as AdminLoginRequest,
+        isKeepLogged: true, // true cause data is from local storage
+        isAlert: false,
+        autoNavigate: false,
+      });
+      this.authenticationResult(ok);
+      return;
+    }
+
+    // Get data from session storage
+    admin = sessionStorage.getItem(storageKey.admin);
+    if (admin) {
+      const ok = await loginController.authenticate({
+        admin: JSON.parse(admin) as AdminLoginRequest,
+        isKeepLogged: false, // false cause data is from session storage
+        isAlert: false,
+        autoNavigate: false,
+      });
+      this.authenticationResult(ok);
+      return;
+    }
+
+    // if pathname is not included below, direct to `/login`
+    // if pathname is included, direct to current pathname
+    const path = ["/login", "/register"].some(
+      (item) => item === location.pathname
+    )
+      ? location.pathname
+      : "/login";
+    Router.navigateTo(path);
+  }
+
+  private authenticationResult(ok: boolean) {
+    if (ok) {
+      // prevent access authentication page if it's already authenticated
+      const path = ["/login", "/register"].some(
+        (item) => item === location.pathname
+      )
+        ? "/"
+        : location.pathname;
+      console.log(path);
+      Router.navigateTo(path);
+    } else {
+      // if there is data from local or session storage
+      // but that is failed at authentication
+      // then direct it to `/login` page
+      Router.navigateTo("/login");
+    }
   }
 
   // Navigate to the component based on window path
@@ -51,7 +109,6 @@ export class Router {
 
             const route2Component = route2.component;
             route2Component.initData();
-            console.log("initData");
             return {
               node: route1Component.render(route2Component.render()),
               path: screenPath,
@@ -64,6 +121,7 @@ export class Router {
           // Testing
           routerStates.currentScreenPath = screenPath;
 
+          route1Component.initData();
           return {
             node: route1Component.render(),
             path: screenPath,
@@ -109,10 +167,10 @@ export class Router {
     path: string,
     searchParams: { [key: string]: string } = {}
   ): boolean {
-    if (location.pathname === path) {
-      return false;
-    }
-
+    // if (location.pathname === path) {
+    //   return false;
+    // }
+    console.log("navigate");
     const newUrl = new URL(path, location.origin);
     Object.entries(searchParams).forEach(([key, value]) => {
       newUrl.searchParams.set(key, value);

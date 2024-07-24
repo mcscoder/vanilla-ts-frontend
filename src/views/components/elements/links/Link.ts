@@ -8,7 +8,7 @@ export class Link extends Component<"a"> {
     this.container.textContent = text;
     this.container.addEventListener("click", (event) => {
       event.preventDefault();
-      Router.navigateTo(to);
+      Router.navigateTo(this.container.href);
     });
   }
   initContent(): void {}
