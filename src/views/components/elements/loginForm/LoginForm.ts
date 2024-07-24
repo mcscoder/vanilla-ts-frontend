@@ -10,6 +10,9 @@ import { OtherMethods } from "./OtherMethods";
 
 export class LoginForm extends Component {
   form: Form;
+  emailInput: Input;
+  passwordInput: Input;
+  keepLogged: Checkbox;
   constructor() {
     // Leading class name: "form-login"
 
@@ -40,26 +43,26 @@ export class LoginForm extends Component {
     this.form = new Form("form");
     {
       // 2.1. Email input
-      const emailInput = new Input(
+      this.emailInput = new Input(
         {
           placeholder: "Email",
           required: true,
-          onchange: () => handleEmailFormat(emailInput.container),
+          onchange: () => handleEmailFormat(this.emailInput.container),
         },
         "form-input"
       );
       // 2.2. Password input
-      const passwordInput = new Input(
+      this.passwordInput = new Input(
         {
           placeholder: "Password",
           required: true,
           type: "password",
-          onchange: () => handlePasswordFormat(passwordInput.container),
+          onchange: () => handlePasswordFormat(this.passwordInput.container),
         },
         "form-input"
       );
       // 2.3. Keep login
-      const keepLogged = new Checkbox("keepLogin", "form-checkbox", [
+      this.keepLogged = new Checkbox("keepLogin", "form-checkbox", [
         "Keep me logged in",
       ]);
       // 2.4. Login button
@@ -73,9 +76,9 @@ export class LoginForm extends Component {
       });
       // Add children
       this.form.container.append(
-        emailInput.render(),
-        passwordInput.render(),
-        keepLogged.render(),
+        this.emailInput.render(),
+        this.passwordInput.render(),
+        this.keepLogged.render(),
         loginButton.render()
       );
     }

@@ -10,6 +10,10 @@ import { OtherMethods } from "./OtherMethods";
 
 export class RegisterForm extends Component {
   form: Form;
+  firstNameInput: Input;
+  lastNameInput: Input;
+  emailInput: Input;
+  passwordInput: Input;
   constructor() {
     // Leading class name: "form"
 
@@ -53,33 +57,33 @@ export class RegisterForm extends Component {
       // 1. Title 3.1.
       const title3_1 = CreateElement("p", "form-title-3", ["Your Name"]);
       // 2. First name input
-      const firstNameInput = new Input(
+      this.firstNameInput = new Input(
         { placeholder: "First Name", required: true },
         "form-input"
       );
       // 3. Last name input
-      const lastNameInput = new Input(
+      this.lastNameInput = new Input(
         { placeholder: "Last Name", required: true },
         "form-input"
       );
       // 4. Title 3.2
       const title3_2 = CreateElement("p", "form-title-3", ["Login Details"]);
       // 5. Email input
-      const emailInput = new Input(
+      this.emailInput = new Input(
         {
           placeholder: "Email",
           required: true,
-          onchange: () => handleEmailFormat(emailInput.container),
+          onchange: () => handleEmailFormat(this.emailInput.container),
         },
         "form-input"
       );
       // 6. Password input
-      const passwordInput = new Input(
+      this.passwordInput = new Input(
         {
           placeholder: "Password",
           type: "password",
           required: true,
-          onchange: () => handlePasswordFormat(passwordInput.container),
+          onchange: () => handlePasswordFormat(this.passwordInput.container),
         },
         "form-input"
       );
@@ -100,11 +104,11 @@ export class RegisterForm extends Component {
       // Add children
       this.form.container.append(
         title3_1,
-        firstNameInput.render(),
-        lastNameInput.render(),
+        this.firstNameInput.render(),
+        this.lastNameInput.render(),
         title3_2,
-        emailInput.render(),
-        passwordInput.render(),
+        this.emailInput.render(),
+        this.passwordInput.render(),
         termCheckbox.render(),
         registerButton.render()
       );

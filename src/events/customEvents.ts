@@ -1,4 +1,4 @@
-export type CustomEventType = "urlChanged";
+export type CustomEventType = "urlChanged" | "logging";
 
 export class CustomEventManager {
   // Dispatch a custom event with a detail of type T
