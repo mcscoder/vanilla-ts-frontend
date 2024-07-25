@@ -4,7 +4,7 @@ import {
   documentTextIcon,
   logoIcon,
 } from "../../../constants";
-import { CategoryData } from "../../../models";
+import { Category } from "../../../models";
 import { Component } from "../../../types";
 import { CategoryMenu, CreateElement, Icon, NavLink } from "../elements";
 
@@ -30,7 +30,7 @@ const navigationLinkItems = [
 ];
 
 export class NavSidebar extends Component {
-  constructor() {
+  constructor(private categories: Category[]) {
     // Leading class name: primary_sidebar
 
     // Container
@@ -65,12 +65,7 @@ export class NavSidebar extends Component {
     });
 
     // 3. Categories menu
-    const categoryMenu = new CategoryMenu([
-      new CategoryData({ id: 1, name: "light tanks", quantity: 12 }),
-      new CategoryData({ id: 2, name: "light tanks", quantity: 12 }),
-      new CategoryData({ id: 3, name: "light tanks", quantity: 12 }),
-      new CategoryData({ id: 4, name: "light tanks", quantity: 12 }),
-    ]);
+    const categoryMenu = new CategoryMenu(this.categories);
 
     // Add children to content container
     contentContainer.append(logo, navLinkContainer, categoryMenu.render());

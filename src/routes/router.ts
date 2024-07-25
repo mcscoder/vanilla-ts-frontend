@@ -98,6 +98,7 @@ export class Router {
     for (const route1 of routes) {
       // Initialize route1 component
       const route1Component = route1.component;
+      route1Component.initData();
 
       // Check if children is not undefined
       if (route1.children) {
@@ -121,7 +122,6 @@ export class Router {
           // Testing
           routerStates.currentScreenPath = screenPath;
 
-          route1Component.initData();
           return {
             node: route1Component.render(),
             path: screenPath,

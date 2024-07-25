@@ -8,22 +8,21 @@ import { Main } from "./Main";
 import { NavSidebar } from "./NavSidebar";
 
 export class MainLayout extends ScreenLayout<MainLayoutController> {
-  main: Main;
+  main: Main = new Main();
   constructor() {
     // Container
     super("global_container", new MainLayoutController());
-    this.initContent();
+    this.controller.fetchData(this.initContent.bind(this));
   }
 
   initData() {}
 
   initContent(): void {
     // 1. Navigation sidebar
-    const navSidebar = new NavSidebar();
+    const navSidebar = new NavSidebar(this.controller.categories);
 
     // 2. Layouts
     const header = new Header();
-    this.main = new Main();
     const footer = new Footer();
 
     // 4. Content container
