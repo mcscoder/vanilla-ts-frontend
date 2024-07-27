@@ -5,6 +5,7 @@ import { extractImageFile } from "../../../../utils";
 import { Button } from "../button";
 import { DragDropUploader } from "../dragDropUploader";
 import { Container, CreateElement, Icon } from "../htmls";
+import { Toast } from "../toast";
 import { ProductThumbnail } from "./ProductThumbnail";
 
 export class ProductGallery extends Component {
@@ -46,6 +47,7 @@ export class ProductGallery extends Component {
             this.newImageFiles.push(file);
           })
         );
+        Toast.alert({ message: "Image has bene added", type: "SUCCESS" });
       },
       [
         Icon(pictureIcon),
@@ -101,11 +103,22 @@ export class ProductGallery extends Component {
       size: "icon",
       type: "icon",
       className: "product_details_form-gallery-image_item-delete_btn",
-      onClick: this.onDeleteClick.bind(this, {
-        id: id,
-        imageItemNodeIndex: this.imageItemNodes.length,
-        newImageFileIndex: newImageIndex,
-      }),
+      onClick: () => {
+        Toast.confirmation({
+          title: "Delete image",
+          message: "Are you sure to delete?",
+          confirmLabel: "Yea sure",
+          onClickConfirm: (isConfirmed) => {
+            if (isConfirmed) {
+              this.onDeleteClick.bind(this, {
+                id: id,
+                imageItemNodeIndex: this.imageItemNodes.length,
+                newImageFileIndex: newImageIndex,
+              });
+            }
+          },
+        });
+      },
     });
 
     // Add children
@@ -140,6 +153,8 @@ export class ProductGallery extends Component {
 
     // Decrease an image
     this.numberOfImages -= 1;
+
+    Toast.alert({ message: "Image has been deleted", type: "SUCCESS" });
   }
 
   render() {

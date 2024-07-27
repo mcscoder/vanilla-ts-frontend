@@ -13,6 +13,7 @@ import { DropDownMenu } from "../../dropDownMenu";
 import { Container, CreateElement, Icon } from "../../htmls";
 import { InputContainer, TextArea } from "../../input";
 import { Tag } from "../../tag";
+import { Toast } from "../../toast";
 import { CustomerInfo } from "./CustomerInfo";
 import { PaymentMethod } from "./PaymentMethod";
 
@@ -89,7 +90,19 @@ export class CustomerDetailsSection extends Component {
           type: "icon",
           className: "customer_details-button",
           onClick: () => {
-            this.onSave(this.dropdown.getValue(), this.note.input.getValue());
+            Toast.confirmation({
+              title: "Update order",
+              message: "Are you sure? this action cannot be undone",
+              confirmLabel: "Update",
+              onClickConfirm: (isConfirmed) => {
+                if (isConfirmed) {
+                  this.onSave(
+                    this.dropdown.getValue(),
+                    this.note.input.getValue()
+                  );
+                }
+              },
+            });
           },
         });
         // Add children

@@ -1,6 +1,7 @@
 import { Order, OrderStatus } from "../models";
 import { Router } from "../routes";
 import { apiService } from "../service";
+import { Toast } from "../views/components";
 import { Controller } from "./controller";
 
 export class OrderDetailsController extends Controller {
@@ -51,7 +52,7 @@ export class OrderDetailsController extends Controller {
           note,
         }
       );
-      console.log("Order has been updated");
+      Toast.alert({ message: "Order has been updated", type: "SUCCESS" });
       initContent();
     } catch (error) {
       console.log(error);

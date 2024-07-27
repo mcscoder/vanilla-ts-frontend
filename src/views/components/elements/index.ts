@@ -18,3 +18,4 @@ export * from "./productDetailsForm";
 export * from "./dragDropUploader";
 export * from "./toast";
 export * from "./loginForm";
+export * from "./search";

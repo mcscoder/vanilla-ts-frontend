@@ -1,9 +1,10 @@
 import { MainLayoutController } from "../../../controllers";
+import { CustomEventManager } from "../../../events";
 import { ScreenLayout } from "../../../types";
 // import { NavSidebar, Header, Footer, Main } from ".";
 import { Container } from "../elements";
 import { Footer } from "./Footer";
-import { Header } from "./Header";
+import { Header } from "./header";
 import { Main } from "./Main";
 import { NavSidebar } from "./NavSidebar";
 
@@ -12,12 +13,14 @@ export class MainLayout extends ScreenLayout<MainLayoutController> {
   constructor() {
     // Container
     super("global_container", new MainLayoutController());
-    this.controller.fetchData(this.initContent.bind(this));
+
+    // 1. Initialize events
+    this.initEvents();
   }
 
   initData() {}
 
-  initContent(): void {
+  initContent() {
     // 1. Navigation sidebar
     const navSidebar = new NavSidebar(this.controller.categories);
 
@@ -35,6 +38,12 @@ export class MainLayout extends ScreenLayout<MainLayoutController> {
 
     // Add children to container
     this.container.append(navSidebar.render(), contentContainer);
+  }
+
+  initEvents() {
+    CustomEventManager.addEventListener("logging", () => {
+      this.controller.fetchData(this.initContent.bind(this));
+    });
   }
 
   render(...children: HTMLElement[]) {
