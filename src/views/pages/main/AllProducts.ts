@@ -1,5 +1,6 @@
 import { addCircleIcon } from "../../../constants";
 import { AllProductsController } from "../../../controllers";
+import { Router } from "../../../routes";
 import { ScreenLayout } from "../../../types";
 import {
   Breadcrumb,
@@ -35,7 +36,9 @@ export class AllProducts extends ScreenLayout<AllProductsController> {
       const button = new Button({
         startIcon: addCircleIcon,
         text: "add new product",
-        onClick: () => {},
+        onClick: () => {
+          Router.navigateTo("/new-product");
+        },
       });
       // Add children
       container1.append(breadcrumb.render(), button.render());

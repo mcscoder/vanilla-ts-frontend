@@ -1,5 +1,5 @@
 import { CustomEventManager } from "../../../../events";
-import { CategoryData } from "../../../../models";
+import { Category } from "../../../../models";
 import { Router, routerStates } from "../../../../routes";
 import { CreateElement } from "../htmls";
 import { Link } from "../links";
@@ -8,8 +8,8 @@ import { Tag } from "../tag";
 // Category item
 export class CategoryLink extends Link {
   private tag: Tag;
-  constructor(private categoryData: CategoryData) {
-    const path = `/products/${categoryData.data.id}`;
+  constructor(private category: Category) {
+    const path = `/products/${category.id}`;
     super(path, "category-link");
 
     // 1. Initialize content
@@ -22,10 +22,10 @@ export class CategoryLink extends Link {
   initContent() {
     // 1. Text
     const text = CreateElement("span", "category-link-label");
-    text.textContent = this.categoryData.data.name;
+    text.textContent = this.category.name;
 
     // 2. Tag
-    this.tag = new Tag(`${this.categoryData.data.quantity}`, "categories", 0);
+    this.tag = new Tag(`${this.category.quantity}`, "categories", 0);
     this.initTagClassName();
 
     // Add children to container
@@ -44,7 +44,7 @@ export class CategoryLink extends Link {
       const screenPath = "/products/:categoryId";
       if (screenPath === routerStates.currentScreenPath) {
         const { categoryId } = Router.getParams();
-        if (Number(categoryId) === this.categoryData.data.id) {
+        if (Number(categoryId) === this.category.id) {
           this.tag.updateTagVariant("categories", 1);
           return;
         }

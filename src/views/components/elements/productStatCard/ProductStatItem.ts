@@ -2,6 +2,7 @@ import { Product } from "../../../../models";
 import { Component } from "../../../../types";
 import { formatINR } from "../../../../utils";
 import { Container, CreateElement } from "../htmls";
+import { Link } from "../links";
 
 export class ProductStatItem extends Component {
   constructor(private product: Product) {
@@ -25,15 +26,18 @@ export class ProductStatItem extends Component {
     const container1 = Container("product_stat_item-container-1");
     {
       // 2.1. Title
-      const title = CreateElement("h4", "product_stat_item-title", [
-        this.product.name,
-      ]);
+      // CreateElement("h4", "product_stat_item-title", [this.product.name]);
+      const title = new Link(
+        `/product-details/${this.product.id}`,
+        "product_stat_item-title",
+        this.product.name
+      );
       // 2.2. Price 1
       const price = CreateElement("p", "product_stat_item-price-1", [
         formatINR(this.product.regularPrice),
       ]);
       // Add children
-      container1.append(title, price);
+      container1.append(title.render(), price);
     }
 
     // 3. Container 2. [price 2, product sales]

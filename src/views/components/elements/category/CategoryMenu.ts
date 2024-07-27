@@ -1,5 +1,5 @@
 import { chevronDownIcon, chevronUpIcon } from "../../../../constants";
-import { CategoryData } from "../../../../models";
+import { Category } from "../../../../models";
 import { Component } from "../../../../types";
 import { CreateElement, Icon } from "../htmls";
 import { CategoryLink } from "./CategoryLink";
@@ -8,7 +8,7 @@ export class CategoryMenu extends Component {
   isExpanded: boolean;
   private iconContainer: HTMLDivElement;
   private linkContainer: HTMLElement;
-  constructor(private categoriesData: CategoryData[]) {
+  constructor(private categories: Category[]) {
     // Leading class name: "category_menu"
     super("category_menu-container");
     this.isExpanded = true;
@@ -54,7 +54,7 @@ export class CategoryMenu extends Component {
       // If `isExpanded` state is `true`
       // Initialize the category links to the view
       this.linkContainer = CreateElement("nav", "category_menu-container-body");
-      this.categoriesData.forEach((categoryData) => {
+      this.categories.forEach((categoryData) => {
         const categoryLink = new CategoryLink(categoryData);
         this.linkContainer.append(categoryLink.render());
       });

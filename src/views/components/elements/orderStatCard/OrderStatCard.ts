@@ -57,7 +57,7 @@ export class OrderStatCard extends Component {
     const percentage = Container(
       "order_stat-percentage_container",
       Icon(this.percentage > 0 ? arrowUpIcon : arrowDownIcon),
-      CreateElement("p", "", [`${this.percentage}`])
+      CreateElement("p", "", [`${this.percentage}%`])
     );
     // 2.4. Container
     const container2 = Container(

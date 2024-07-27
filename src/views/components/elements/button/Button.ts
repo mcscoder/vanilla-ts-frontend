@@ -34,7 +34,7 @@ export type ButtonProps = {
   size?: ButtonSize;
   type?: ButtonType;
   className?: string;
-  onClick: () => void;
+  onClick: (ev: MouseEvent) => void;
 };
 
 export type ButtonAttributes = Pick<

@@ -1,8 +1,8 @@
-import { storageKey } from "../constants";
 import { CustomEventManager } from "../events";
 import { AdminLoginRequest, AdminRegisterRequest } from "../models";
 import { Router } from "../routes";
 import { apiService } from "../service";
+import { storageManager } from "../utils";
 import { Toast } from "../views/components";
 import { Controller } from "./controller";
 
@@ -37,11 +37,11 @@ export class LoginController extends Controller {
       if (isKeepLogged) {
         // write admin data to local storage if keep logged was specified
         // because that would not be auto removed
-        localStorage.setItem(storageKey.admin, JSON.stringify(data));
+        storageManager.set("local", "admin", data);
       } else {
         // else write data to session storage if keep logged was not specified
         // because that would be removed when current tab was closed
-        sessionStorage.setItem(storageKey.admin, JSON.stringify(data));
+        storageManager.set("session", "admin", data);
       }
 
       // Dispatch logging event
@@ -59,8 +59,8 @@ export class LoginController extends Controller {
       }
 
       // remove user data when authentication is failed
-      localStorage.removeItem(storageKey.admin);
-      sessionStorage.removeItem(storageKey.admin);
+      storageManager.remove("local", "admin");
+      storageManager.remove("session", "admin");
 
       return false;
     }

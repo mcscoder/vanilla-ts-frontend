@@ -1,8 +1,8 @@
-import { storageKey } from "../constants";
 import { LoginController } from "../controllers";
 import { CustomEventManager } from "../events";
 import { AdminLoginRequest } from "../models";
 import { ScreenRoute } from "../types";
+import { storageManager } from "../utils";
 import { routerStates, routes } from "./routes";
 
 export class Router {
@@ -23,10 +23,10 @@ export class Router {
   private async authentication() {
     const loginController = new LoginController();
     // Get admin data from local storage
-    let admin = localStorage.getItem(storageKey.admin);
+    let admin = storageManager.get("local", "admin");
     if (admin) {
       const ok = await loginController.authenticate({
-        admin: JSON.parse(admin) as AdminLoginRequest,
+        admin: admin as AdminLoginRequest,
         isKeepLogged: true, // true cause data is from local storage
         isAlert: false,
         autoNavigate: false,
@@ -36,10 +36,10 @@ export class Router {
     }
 
     // Get data from session storage
-    admin = sessionStorage.getItem(storageKey.admin);
+    admin = storageManager.get("session", "admin");
     if (admin) {
       const ok = await loginController.authenticate({
-        admin: JSON.parse(admin) as AdminLoginRequest,
+        admin: admin as AdminLoginRequest,
         isKeepLogged: false, // false cause data is from session storage
         isAlert: false,
         autoNavigate: false,
@@ -98,6 +98,7 @@ export class Router {
     for (const route1 of routes) {
       // Initialize route1 component
       const route1Component = route1.component;
+      route1Component.initData();
 
       // Check if children is not undefined
       if (route1.children) {
@@ -121,7 +122,6 @@ export class Router {
           // Testing
           routerStates.currentScreenPath = screenPath;
 
-          route1Component.initData();
           return {
             node: route1Component.render(),
             path: screenPath,
